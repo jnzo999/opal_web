@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Spam Hellen</title>
+    <link rel="stylesheet" href="css/2style.css">
+    <script src="modules/smtp.js"></script>
+
+</head>
+
+<body>
+
+
+    <!---------contact-------->
+
+    <section class="contactus">
+        <div class="container">
+            <h1>Helen Form:</h1>
+            <form>
+                <input type="text" id="email_name" placeholder="Name" required>
+                <input type="email" id="email_email" placeholder="Email" required>
+                <input type="text" id="email_subject" placeholder="Subject" required>
+                <select id="email_reason">
+                    <option disabled selected value="" style="display:none">Select Your Problem<option> 
+                    <option>I really like cheese</option>
+                    <option>My friends hate me</option>
+                    <option>I want to order an asassenation</option>
+                    <option>Cyber fucking sucks</option>
+                    <option>Girls scare me</option>
+                    <option>I hate Alice</option>
+                    <option>Helen scares me</option>
+                </select>
+                <textarea rows="8" id="email_message" placeholder="Message" required></textarea>
+                <button type="button" value="Send Email" onclick="sendEmail()">Send</button>
+            </form>
+        </div>
+
+        <script> 
+            function sendEmail() {
+                alert("hi");
+                var form_name = document.getElementById("email_name").value;
+                var form_email = document.getElementById("email_email").value;
+                var form_reason = document.getElementById("email_reason").value;
+                var form_subject = document.getElementById("email_subject").value;
+                var form_message = document.getElementById("email_message").value;
+                var form_mail = "Hello dear HELEN!<br>" + form_name +" sent you a message :).<br>I'm having issues with:<br>" + form_reason +".<br><br>" + form_message + "<br><br>Feel free to contact me at: " + form_email + " and i will gladly respond!<br>Thank you for the hard work!<br>Sending my best regards, <br>" + form_name + ".";
+                Email.send({
+                    Host: "smtp.elasticemail.com",
+                    Port: '2525',
+                    Username: "spamsjonathan@gmail.com",
+                    Password: "AAA8495BB33D90236476320C51742DC632D5",
+                    To: "tomm.babai@gmail.com",
+                    From: "spamsjonathan@gmail.com",
+                    Subject: form_subject,
+                    Body: form_mail
+                }).then(message => alert(message));
+                document.getElementById("email_name").placeholder = "Name";
+                document.getElementById("email_email").placeholder = "Email";
+                document.getElementById("email_reason").value = "Select Your Problem";
+                document.getElementById("email_subject").placeholder = "Subject";
+                document.getElementById("email_message").placeholder = "Message";
+            }
+        </script>
+</body>
+</html>
