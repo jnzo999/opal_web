@@ -1,0 +1,26 @@
+# HTML
+# Archive your static HTML project and save it with the build record.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: pp-pool
+
+steps:
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(build.sourcesDirectory)'
+    includeRootFolder: false
+#- task: PublishBuildArtifacts@1
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'iac-pp'
+    appType: 'webAppLinux'
+    WebAppName: 'sys-test-jnzo-as'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/'
+    RuntimeStack: 'STATICSITE|1.0'
+    StartupCommand: './code/homepage.html'
